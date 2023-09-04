@@ -23,3 +23,13 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+
+Route.group(() => {
+  // registration logic
+  Route.post('register', 'AuthController.register').as('register')
+  Route.post('login', 'AuthController.login').as('login')
+}).prefix('api/v1/auth/')
+
+Route.group(() => {
+  Route.get('/', 'ProfilesController.dashboard')
+}).prefix('api/v1/profile').middleware('auth:api')
