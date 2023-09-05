@@ -23,4 +23,18 @@ export default Env.rules({
   SESSION_DRIVER: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
+  BOOKS_API_KEY: Env.schema.string(),
+  BOOKS_API_URL: Env.schema.string(),
+  REDIS_CONNECTION: Env.schema.enum(['local'] as const),
+  REDIS_HOST: Env.schema.string(),
+  REDIS_PORT: Env.schema.number(),
+  REDIS_PASSWORD: Env.schema.string.optional(),
+  DB_CONNECTION: Env.schema.string(),
+  MYSQL_HOST: Env.schema.string(),
+  MYSQL_PORT: Env.schema.number(),
+  MYSQL_USER: Env.schema.string(),
+  MYSQL_PASSWORD: Env.schema.string.optional(),
+  MYSQL_DB_NAME: Env.schema.string(),
+
+
 })

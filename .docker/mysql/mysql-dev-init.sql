@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS `adonis_books_bookmarks` ;
+
+CREATE USER 'adonis'@'%' IDENTIFIED BY 'secret';
+GRANT ALL PRIVILEGES ON * . * TO 'adonis'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

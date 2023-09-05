@@ -33,7 +33,9 @@
       "@adonisjs/shield",
       "@japa/preset-adonis/build/adonis-typings",
       "@adonisjs/auth",
-      "@adonisjs/lucid"
+      "@adonisjs/lucid",
+      "@kaperskyguru/adonis-cache",
+      "@adonisjs/redis"
     ]
   }
 }

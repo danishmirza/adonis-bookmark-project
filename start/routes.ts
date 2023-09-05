@@ -32,4 +32,10 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'ProfilesController.dashboard')
+  Route.post('/mark-book-favourite', 'ProfilesController.markFavouriteBook')
+  Route.get('/favourite-books', 'ProfilesController.favouritesBooks')
 }).prefix('api/v1/profile').middleware('auth:api')
+
+Route.group(() => {
+  Route.get('books', 'BooksController.index')
+}).prefix('api/v1/')

@@ -24,7 +24,9 @@
     "@adonisjs/view",
     "@adonisjs/shield",
     "@adonisjs/auth",
-    "@adonisjs/lucid"
+    "@adonisjs/lucid",
+    "@kaperskyguru/adonis-cache",
+    "@adonisjs/redis"
   ],
   "metaFiles": [
     {

@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  adonis_app:
+    container_name: adonis_app
+    restart: always
+    build:
+      context: .
+      target: dependencies
+    ports:
+      - ${PORT}:${PORT}
+      - 9229:9229
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOST=adonis_redis
+    volumes:
+      - ./:/home/node/app
+    depends_on:
+#      - adonis_mysql
+      - adonis_redis
+    command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0"
+
+  adonis_redis:
+    container_name: adonis_redis
+    image: redis:6-alpine
+    volumes:
+      - redis_volume:/data
+    ports:
+      - 6379:6379
+
+  adonis_mysql:
+    image: mysql:${MYSQL_VERSION}
+    container_name: adonis_mysql1
+    restart: always
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE:${MYSQL_DB_NAME}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+    ports:
+      - '9408:3306'
+    volumes:
+#      - mysql_volume:/var/lib/mysql/data
+      - ./.docker/mysql:/docker-entrypoint-initdb.d # will setup dev database adonis_app for us
+
+  adonis_phpmyadmin:
+    image: phpmyadmin
+    container_name: adonis_phpmyadmin
+    restart: always
+    ports:
+      - 9230:80
+    depends_on:
+      - adonis_mysql
+    links:
+      - adonis_mysql
+    volumes:
+      - phpmyadmin_data:/var/www/html/
+    environment:
+      PMA_HOST: ${MYSQL_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes:
+  mysql_volume:
+  redis_volume:
+  phpmyadmin_data:
