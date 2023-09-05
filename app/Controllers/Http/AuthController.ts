@@ -8,25 +8,28 @@ export default class AuthController {
             email: schema.string({}, [rules.email(), rules.unique({ table: 'users', column: 'email' })]),
             password: schema.string({}, [rules.confirmed()]),
         })
-        const data = await request.validate({ schema: validations })
-        const user = await User.create(data)
+        const data: {email: string, password: string}  = await request.validate({ schema: validations })
+        const user: User = await User.create(data)
         return response.created(user)
     }
 
     public async login({ request, response, auth }: HttpContextContract) {
-        const password = await request.input('password')
-        const email = await request.input('email')
+      const validations = await schema.create({
+        email: schema.string(),
+        password: schema.string(),
+      })
+      const data: {email: string, password: string} = await request.validate({ schema: validations })
 
-        try {
-            const token = await auth.use('api').attempt(email, password, {
-                expiresIn: '24hours',
-            })
-            return token.toJSON()
-        } catch (error) {
-            console.log(error)
-            return response
-                .status(400)
-                .send({ error: { message: 'User with provided credentials could not be found' } })
-        }
+      try {
+          const token = await auth.use('api').attempt(data.email, data.password, {
+              expiresIn: '24hours',
+          })
+          return token.toJSON()
+      } catch (error) {
+          console.log(error)
+          return response
+              .status(400)
+              .send({ error: { message: 'User with provided credentials could not be found' } })
+      }
     }
 }

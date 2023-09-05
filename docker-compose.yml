@@ -31,14 +31,14 @@ services:
 
   adonis_mysql:
     image: mysql:${MYSQL_VERSION}
-    container_name: adonis_mysql1
+    container_name: adonis_mysql
     restart: always
     env_file: .env
     environment:
-      - MYSQL_DATABASE:adonis_books_bookmarks
-      - MYSQL_ROOT_PASSWORD:secret
-      - MYSQL_USER:root
-      - MYSQL_PASSWORD:root
+      - MYSQL_DATABASE:${MYSQL_DB_NAME}
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER:${MYSQL_USER}
+      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
     ports:
       - '9408:3306'
     volumes:
@@ -64,5 +64,4 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
 
 volumes:
-  redis_volume:
   phpmyadmin_data:

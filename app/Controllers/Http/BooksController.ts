@@ -15,7 +15,7 @@ export default class BooksController {
     // page number default is 1
     const page = request.input('page', 1)
     // max results default is 10
-    const maxResults = 1
+    const maxResults = 5
     // start of the record cursor default is 0
     const startIndex = (parseInt(page)-1) * maxResults
 

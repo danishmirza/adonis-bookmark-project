@@ -25,17 +25,18 @@ Route.get('/', async ({ view }) => {
 })
 
 Route.group(() => {
-  // registration logic
-  Route.post('register', 'AuthController.register').as('register')
-  Route.post('login', 'AuthController.login').as('login')
-}).prefix('api/v1/auth/')
-
-Route.group(() => {
-  Route.get('/', 'ProfilesController.dashboard')
-  Route.post('/mark-book-favourite', 'ProfilesController.markFavouriteBook')
-  Route.get('/favourite-books', 'ProfilesController.favouritesBooks')
-}).prefix('api/v1/profile').middleware('auth:api')
-
-Route.group(() => {
   Route.get('books', 'BooksController.index')
+
+  Route.group(() => {
+    // registration logic
+    Route.post('register', 'AuthController.register').as('register')
+    Route.post('login', 'AuthController.login').as('login')
+  }).prefix('auth/')
+
+  Route.group(() => {
+    Route.get('', 'ProfilesController.dashboard')
+    Route.post('mark-book-favourite', 'ProfilesController.markFavouriteBook')
+    Route.get('favourite-books', 'ProfilesController.favouritesBooks')
+  }).prefix('profile/').middleware('auth:api')
+
 }).prefix('api/v1/')
