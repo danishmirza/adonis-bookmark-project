@@ -35,8 +35,9 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('', 'ProfilesController.dashboard')
-    Route.post('mark-book-favourite', 'ProfilesController.markFavouriteBook')
-    Route.get('favourite-books', 'ProfilesController.favouritesBooks')
+
+    Route.resource('bookmarks', 'BookmarksController')
+        .only(['index', 'store', 'destroy'])
   }).prefix('profile/').middleware('auth:api')
 
 }).prefix('api/v1/')

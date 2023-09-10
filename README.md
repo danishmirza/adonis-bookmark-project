@@ -45,7 +45,7 @@ $ node ace migration:run
 - Import postman Collection from this link
 ```cmd
 
-$ https://elements.getpostman.com/redirect?entityId=24936761-87bee2f5-1e5e-45af-a98e-aba7e10c2e95&entityType=collection
+$ https://api.postman.com/collections/24936761-87bee2f5-1e5e-45af-a98e-aba7e10c2e95?access_key=PMAT-01H9Z4TYAZ0Y8W5H6KK30APP58
 
 ```
 
